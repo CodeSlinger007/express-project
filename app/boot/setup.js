@@ -19,6 +19,7 @@ const logger = require("../middleware/winston");
 const todoRoutes = require("../routes/todo.routes");
 const messageRoutes = require("../routes/message.routes");
 const authRouter = require("../routes/auth.routes");
+const movieRoutes = require("../routes/movie.routes");
 
 // mongoDB connection
 try {
@@ -60,6 +61,7 @@ const registerCoreMiddleWare = () => {
     // register routes
     app.use("/message", verifyToken, messageRoutes);
     app.use("/auth", authRouter);
+    app.use("/movies", verifyToken, movieRoutes);
 
     // 404 error
     app.use(notFound);
