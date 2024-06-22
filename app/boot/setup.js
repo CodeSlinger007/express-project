@@ -44,12 +44,6 @@ const registerCoreMiddleWare = () => {
         },
       })
     );
-    res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn()
-    };
-
-    notFound()
     app.use(morgan("combined", { stream: logger.stream }));
     app.use(cors());
     app.use(helmet());
