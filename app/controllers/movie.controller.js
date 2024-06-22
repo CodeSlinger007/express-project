@@ -1,6 +1,7 @@
 const statusCodes = require("../constants/statusCodes");
 const pool = require("../boot/database/db_connect");
 const logger = require("../middleware/winston");
+const uploadFile = require("../upload/uploadFile");
 
 const addMovie = async (req, res) => {
   const { title, release_date, author } = req.body;
@@ -79,7 +80,38 @@ const getMovieById = async (req, res) => {
   );
 };
 
-const updateMovieById = async (req, res) => {};
+const updateMovieById = async (req, res) => {
+  const { id } = req.params;
+  const { release_date } = req.body;
+
+  let movie_id = parseInt(id);
+
+  if (!release_date || isNaN(movie_id)) {
+    return res
+      .status(statusCodes.missingParameters)
+      .json({ message: "Wrong or missing parameters" });
+  } else {
+    pool.query(
+      `UPDATE movies SET release_date = $1 WHERE movie_id = $2;`,
+      [release_date, movie_id],
+      (err, rows) => {
+        if (err) {
+          logger.error(err.stack);
+          return res.status(statusCodes.queryError).json({
+            error: `Exception occured while updating movie with id=${movie_id}`,
+          });
+        }
+        if (rows.rowCount === 0) {
+          res.status(statusCodes.queryError).json({
+            error: `Movie with id=${movie_id} not found`,
+          });
+        } else {
+          res.status(statusCodes.success).json({ message: "Movie updated" });
+        }
+      }
+    );
+  }
+};
 
 const addMovieWithImage = async (req, res) => {
   const { title, release_date, author } = req.body;
@@ -126,8 +158,52 @@ const addMovieWithImage = async (req, res) => {
   }
 };
 
+const uploadImage = async (req, res) => {
+  const { id } = req.params;
+
+  let movie_id = parseInt(id);
+
+  if (isNaN(movie_id)) {
+    return res
+      .status(statusCodes.badRequest)
+      .json({ message: "id must be a number" });
+  }
+  let sql = "UPDATE movies SET poster = $1 WHERE movie_id = $2;";
+
+  if (req.file) {
+    let { mimetype } = req.file;
+
+    // if (
+    //   !mimetype !== "image/png" &&
+    //   !mimetype !== "image/jpeg" &&
+    //   !mimetype !== "image/jpg"
+    // ) {
+    //   res
+    //     .status(statusCodes.badRequest)
+    //     .json({ message: "Only images allowed" });
+    // } else {
+    uploadFile(`${req.user.id}/`, req, sql, (response) => {
+      if (response.error) {
+        res
+          .status(statusCodes.badRequest)
+          .json({ error: "Error while uploading image" });
+      } else {
+        res.status(statusCodes.success).json({ response });
+      }
+    });
+  }
+  //   } else {
+  //     res
+  //       .status(statusCodes.missingParameters)
+  //       .json({ message: "File is missing" });
+  //   }
+};
+
 module.exports = {
   addMovie,
   getMovies,
   getMovieById,
+  addMovieWithImage,
+  updateMovieById,
+  uploadImage,
 };

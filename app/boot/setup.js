@@ -13,7 +13,7 @@ const verifyToken = require("../middleware/authentication");
 const notFound = require("../middleware/notFound");
 const healthCheck = require("../middleware/healthCheck");
 const logger = require("../middleware/winston");
-// validators
+const validator = require("../middleware/validator");
 
 // routes
 const todoRoutes = require("../routes/todo.routes");
@@ -48,6 +48,7 @@ const registerCoreMiddleWare = () => {
     app.use(cors());
     app.use(helmet());
     app.use(express.json());
+    app.use(validator);
 
     app.use(healthCheck);
     app.use("/todo", verifyToken, todoRoutes);
@@ -69,8 +70,8 @@ const handleError = () => {
   // 'process' is a built in object in nodejs
   // if uncaught exception, then execute this
   process.on("uncaughtException", (err) => {
-    logger.error("Uncaught Exception occured");
-    process.exit(1);
+    logger.error(err.message);
+    // process.exit(1);
   });
 };
 
