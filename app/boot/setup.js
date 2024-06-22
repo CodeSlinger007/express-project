@@ -8,10 +8,11 @@ const helmet = require("helmet");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const morgan = require("morgan");
 const verifyToken = require("../middleware/authentication");
 const notFound = require("../middleware/notFound");
 const healthCheck = require("../middleware/healthCheck");
-// logger
+const logger = require("../middleware/winston");
 // validators
 
 // routes
@@ -22,9 +23,9 @@ const authRouter = require("../routes/auth.routes");
 // mongoDB connection
 try {
   mongoose.connect("mongodb://localhost:27017/epita");
-  console.log("Connected to MongoDB");
+  logger.info("Connected to MongoDB");
 } catch (error) {
-  console.error("Error Connecting to MongoDB");
+  logger.error("Error Connecting to MongoDB");
 }
 
 const registerCoreMiddleWare = () => {
@@ -42,6 +43,13 @@ const registerCoreMiddleWare = () => {
         },
       })
     );
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    };
+
+    notFound()
+    app.use(morgan("combined", { stream: logger.stream }));
     app.use(cors());
     app.use(helmet());
     app.use(express.json());
@@ -56,7 +64,7 @@ const registerCoreMiddleWare = () => {
     // 404 error
     app.use(notFound);
   } catch (error) {
-    console.log(error.message);
+    logger.error(error.message);
   }
 };
 
@@ -65,7 +73,7 @@ const handleError = () => {
   // 'process' is a built in object in nodejs
   // if uncaught exception, then execute this
   process.on("uncaughtException", (err) => {
-    console.log("Uncaught Exception occured");
+    logger.error("Uncaught Exception occured");
     process.exit(1);
   });
 };
@@ -77,13 +85,13 @@ const startApp = () => {
     registerCoreMiddleWare();
 
     app.listen(PORT, () => {
-      console.log("Server running on http://127.0.0.1:" + PORT);
+      logger.info("Server running on http://127.0.0.1:" + PORT);
     });
 
     // exit on uncaught exception
     handleError();
   } catch (error) {
-    console.log("startup :: Error while booting application");
+    logger.error("startup :: Error while booting application");
     throw error;
   }
 };

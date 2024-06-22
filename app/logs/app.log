@@ -1,0 +1,25 @@
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:54:20.471Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:54:20.474Z"}
+{"level":"info","message":"::1 - - [22/Jun/2024:10:54:57 +0000] \"POST /auth/login HTTP/1.1\" 200 227 \"-\" \"PostmanRuntime/7.37.3\"\n","timestamp":"2024-06-22T10:54:57.870Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:55:54.727Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:55:54.730Z"}
+{"level":"info","message":"\u001b[0mPOST /auth/login \u001b[32m200\u001b[0m 80.393 ms - 227\u001b[0m\n","timestamp":"2024-06-22T10:55:59.587Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:56:13.343Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:56:13.346Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:56:24.222Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:56:24.225Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:57:37.096Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:57:37.098Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:57:49.793Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:57:49.796Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:58:02.273Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:58:02.275Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T10:58:24.175Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T10:58:24.178Z"}
+{"level":"info","message":"::1 - - [22/Jun/2024:10:58:27 +0000] \"POST /auth/login HTTP/1.1\" 200 227 \"-\" \"PostmanRuntime/7.37.3\"\n","timestamp":"2024-06-22T10:58:27.589Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T11:54:17.732Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'status')","timestamp":"2024-06-22T11:54:17.734Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T11:54:17.735Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-06-22T11:55:00.968Z"}
+{"level":"error","message":"jest is not defined","timestamp":"2024-06-22T11:55:00.969Z"}
+{"level":"info","message":"Server running on http://127.0.0.1:8080","timestamp":"2024-06-22T11:55:00.970Z"}
