@@ -17,6 +17,7 @@ const healthCheck = require("../middleware/healthCheck");
 // routes
 const todoRoutes = require("../routes/todo.routes");
 const messageRoutes = require("../routes/message.routes");
+const authRouter = require("../routes/auth.routes");
 
 // mongoDB connection
 try {
@@ -50,6 +51,7 @@ const registerCoreMiddleWare = () => {
 
     // register routes
     app.use("/message", verifyToken, messageRoutes);
+    app.use("/auth", authRouter);
 
     // 404 error
     app.use(notFound);
